@@ -14,8 +14,7 @@ namespace PeliculasApii.Controllers
 
         private readonly ILogger<GenerosController> logger;
 
-        public GenerosController(
-            ILogger<GenerosController> logger)
+        public GenerosController(ILogger<GenerosController> logger)
         {
             this.logger = logger;
         }
@@ -48,7 +47,6 @@ namespace PeliculasApii.Controllers
         {
             return NoContent();
         }   
-
 
 
         [HttpDelete]
