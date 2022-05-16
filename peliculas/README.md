@@ -71,3 +71,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 /---**--------------------------------------------------**---/
 
 
+### `npm i axios` libreria. Cliente HTTP. realizar peticiones http desde react
+
+
