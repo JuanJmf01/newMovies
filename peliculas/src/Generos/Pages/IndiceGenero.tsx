@@ -1,12 +1,13 @@
 import axios, { AxiosResponse, AxiosResponseHeaders } from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { urlGeneros } from "../../Utils/endpoints";
 import { generoDTO } from "../generos.model";
 
 export default function IndiceGeneros() {
 
     useEffect(() => {
-        axios.get('https://localhost:7059/api/generos')
+        axios.get(urlGeneros)
             .then((respuesta: AxiosResponse<generoDTO[]>) => {
                 console.log(respuesta.data)
             })

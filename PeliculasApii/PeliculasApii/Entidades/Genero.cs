@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PeliculasApii.Validaciones;
+using System.ComponentModel.DataAnnotations;
 
 namespace PeliculasApii.Entidades
 {
@@ -8,10 +9,9 @@ namespace PeliculasApii.Entidades
 
         //Campo nombre requerido (Obligatorio)
         [Required(ErrorMessage = "El campo {0} es requerido")]
-
         //Longitud de string nombre 
         [StringLength(maximumLength: 50)]
-        //[PrimeraLetraMayuscula] //Regla de validacion por atributo
+        [PrimeraLetraMayuscula] //Regla de validacion por atributo
         public string Nombre { get; set; }
 
         

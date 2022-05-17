@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using PeliculasApii;
 using PeliculasApii.Filters;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,13 +13,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 builder.Services.AddResponseCaching();
 
 
+//Excepciones
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(FiltroDeExcepciones));
+});
 
-//Conexion
+
+//Conexion FrontEnd
 var MyAllowSpecificOrigins = "frontend_url";
 builder.Services.AddCors(options =>
 {
@@ -33,23 +36,15 @@ builder.Services.AddCors(options =>
 });
 
 
+var connectionString = "Data Source=(localDb)\\SQLEXPRESS;Initial Catalog=PeliculasApii;Integrated Security=True";
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(connectionString));
 
-//Excepciones
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(typeof(FiltroDeExcepciones));
-})
-    
-    ;
+
 
 var app = builder.Build();
 
-
-
-
-
-
-
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) 
 {
     app.UseSwagger();
