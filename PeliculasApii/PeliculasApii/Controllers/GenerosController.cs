@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PeliculasApii.Entidades;
 
 
@@ -13,19 +14,22 @@ namespace PeliculasApii.Controllers
         //Asinacion como campo (WeatherForecastController. GenerosController, etc)
 
         private readonly ILogger<GenerosController> logger;
+        private readonly ApplicationDbContext context;
 
-        public GenerosController(ILogger<GenerosController> logger)
+        public GenerosController(ILogger<GenerosController> logger,
+            ApplicationDbContext context) // ,ApplicationDbContext context. Agregar despues de update-database. finlamente crear y asignar como campo context: ctrl . in up context
         {
             this.logger = logger;
+            this.context = context;
         }
 
 
-        //Podemos definir multiples endPoinds por accion ej:
+        //Podemos definir multiples endPoinds por accion:
         [HttpGet]
         //Acciones. Responden cuando se le haga una peticion http al endPoind
-        public ActionResult<List<Genero>> Get()
+        public async Task<ActionResult<List<Genero>>> Get()
         {
-            return new List<Genero> { new Genero() { Id = 1, Nombre = "Comedia" } };
+            return await context.Generos.ToListAsync();
         }
 
 
@@ -36,9 +40,11 @@ namespace PeliculasApii.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] Genero genero)
+        public async Task<ActionResult> Post([FromBody] Genero genero)
         {
-            throw new NotImplementedException();
+            context.Add(genero);
+            await context.SaveChangesAsync();
+            return NoContent();
         }
 
 

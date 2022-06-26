@@ -36,7 +36,9 @@ builder.Services.AddCors(options =>
 });
 
 
-var connectionString = "Data Source=(localDb)\\SQLEXPRESS;Initial Catalog=PeliculasApii;Integrated Security=True";
+
+//Conexion backend
+var connectionString = "Data Source=LAPTOP-CTV90VT4\\SQLEXPRESS;Initial Catalog=PeliculasApii;Integrated Security=True; TrustServerCertificate=True";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(connectionString));
 
@@ -52,12 +54,10 @@ if (app.Environment.IsDevelopment())
 
 }
 
-//Conexion
+//Conexion front
 app.UseCors(MyAllowSpecificOrigins);
 
-
 app.UseHttpsRedirection();
-
 
 app.UseAuthentication();
 

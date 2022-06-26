@@ -1,7 +1,4 @@
-﻿//Desde esta clase se pretend
-
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PeliculasApii.Entidades;
 using PeliculasApii.Validaciones;
 using System.ComponentModel.DataAnnotations;
